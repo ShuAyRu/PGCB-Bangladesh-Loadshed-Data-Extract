@@ -23,16 +23,6 @@ Navigate to the official [PGCB Hourly Generation Portal](https://erp.powergrid.g
 
 The table will instantly update, revealing perfectly aligned data for both **Demand** and **Loadshed**.
 
----
-
-## 🛠️ How It Works Under the Hood
-
-The script repairs the interface using a three-tiered approach to bypass strict frontend framework loops:
-
-1. **Header Resurrection:** Uses a browser native `NodeIterator` to locate the invisible comment node (`NodeFilter.SHOW_COMMENT`) inside the `<thead>`. It cleanly extracts the text and injects proper `<th>` cells for *Demand(MW)* and *Loadshed*.
-2. **Mathematical Calculation:** The developer comments left behind are corrupted text fragments (e.g., `td> -15150.00`). Rather than relying on broken text parsing, the script grabs the live **Generation ($G$)** value and isolates the true **Loadshed ($L$)** variable from the hidden block, then derives the true **Demand** dynamically:
-   $$\text{Demand} = \text{Generation} + \text{Loadshedding}$$
-3. **Surgical Alignment:** Instead of forcefully overwriting the table via disruptive `.innerHTML` mutations, it targets structural child arrays to cleanly insert the new elements right after the Generation cell anchor, sliding the shifted columns back into place seamlessly.
 
 ## 📄 License
 This project is open-source and available under the MIT License.
